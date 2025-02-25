@@ -9,6 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Entity representing a restaurant.
+ * This class contains properties and methods related to a restaurant's data.
+ */
 #[ORM\Entity(repositoryClass: RestaurantRepository::class)]
 #[ORM\Table(name: 'restaurants')]
 class Restaurant
@@ -16,21 +20,22 @@ class Restaurant
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id = null; // Unique identifier for the restaurant
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    private string $name;
+    private string $name; // Name of the restaurant
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    private string $address;
+    private string $address; // Address of the restaurant
 
     #[ORM\Column]
-    private bool $isActive = true;
+    private bool $isActive = true; // Indicates if the restaurant is active
 
+    // Collections for related entities
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Order::class)]
     private Collection $orders;
 
@@ -53,129 +58,24 @@ class Restaurant
         $this->tables = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getAddress(): string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Order>
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders->add($order);
-        }
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        $this->orders->removeElement($order);
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, MenuItem>
-     */
-    public function getMenuItems(): Collection
-    {
-        return $this->menuItems;
-    }
-
-    public function addMenuItem(MenuItem $menuItem): self
-    {
-        if (!$this->menuItems->contains($menuItem)) {
-            $this->menuItems->add($menuItem);
-        }
-        return $this;
-    }
-
-    public function removeMenuItem(MenuItem $menuItem): self
-    {
-        $this->menuItems->removeElement($menuItem);
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Staff>
-     */
-    public function getStaff(): Collection
-    {
-        return $this->staff;
-    }
-
-    public function addStaffMember(Staff $staffMember): self
-    {
-        if (!$this->staff->contains($staffMember)) {
-            $this->staff->add($staffMember);
-        }
-        return $this;
-    }
-
-    public function removeStaffMember(Staff $staffMember): self
-    {
-        $this->staff->removeElement($staffMember);
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Table>
-     */
-    public function getTables(): Collection
-    {
-        return $this->tables;
-    }
-
-    public function addTable(Table $table): self
-    {
-        if (!$this->tables->contains($table)) {
-            $this->tables->add($table);
-        }
-        return $this;
-    }
-
-    public function removeTable(Table $table): self
-    {
-        $this->tables->removeElement($table);
-        return $this;
-    }
+    // Getters and setters for accessing and modifying properties
+    public function getId(): ?int { return $this->id; }
+    public function getName(): string { return $this->name; }
+    public function setName(string $name): self { $this->name = $name; return $this; }
+    public function getAddress(): string { return $this->address; }
+    public function setAddress(string $address): self { $this->address = $address; return $this; }
+    public function isActive(): bool { return $this->isActive; }
+    public function setIsActive(bool $isActive): self { $this->isActive = $isActive; return $this; }
+    public function getOrders(): Collection { return $this->orders; }
+    public function addOrder(Order $order): self { if (!$this->orders->contains($order)) { $this->orders->add($order); } return $this; }
+    public function removeOrder(Order $order): self { $this->orders->removeElement($order); return $this; }
+    public function getMenuItems(): Collection { return $this->menuItems; }
+    public function addMenuItem(MenuItem $menuItem): self { if (!$this->menuItems->contains($menuItem)) { $this->menuItems->add($menuItem); } return $this; }
+    public function removeMenuItem(MenuItem $menuItem): self { $this->menuItems->removeElement($menuItem); return $this; }
+    public function getStaff(): Collection { return $this->staff; }
+    public function addStaffMember(Staff $staffMember): self { if (!$this->staff->contains($staffMember)) { $this->staff->add($staffMember); } return $this; }
+    public function removeStaffMember(Staff $staffMember): self { $this->staff->removeElement($staffMember); return $this; }
+    public function getTables(): Collection { return $this->tables; }
+    public function addTable(Table $table): self { if (!$this->tables->contains($table)) { $this->tables->add($table); } return $this; }
+    public function removeTable(Table $table): self { $this->tables->removeElement($table); return $this; }
 }
