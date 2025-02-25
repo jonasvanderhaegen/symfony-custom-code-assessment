@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Restaurant\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MenuItemRepository::class)]
 #[ORM\Table(name: 'menu_items')]
@@ -21,12 +22,15 @@ class MenuItem
     private Restaurant $restaurant;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Assert\NotNull]
     private float $price;
 
     #[ORM\Column(type: 'json')]

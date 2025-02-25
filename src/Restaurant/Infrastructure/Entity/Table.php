@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Restaurant\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: 'tables')]
@@ -20,9 +21,12 @@ class Table
     private Restaurant $restaurant;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
     private string $number;
 
     #[ORM\Column]
+    #[Assert\NotNull]
+    #[Assert\GreaterThan(0)]
     private int $capacity;
 
     #[ORM\Column(length: 50)]

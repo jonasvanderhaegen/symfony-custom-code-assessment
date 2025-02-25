@@ -7,6 +7,7 @@ namespace App\Restaurant\Infrastructure\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StaffRepository::class)]
 #[ORM\Table(name: 'staff')]
@@ -24,12 +25,18 @@ class Staff
     private Restaurant $restaurant;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private string $firstName;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private string $lastName;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private string $email;
 
     #[ORM\Column(length: 50)]

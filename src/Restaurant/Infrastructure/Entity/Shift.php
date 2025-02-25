@@ -6,7 +6,7 @@ namespace App\Restaurant\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ShiftRepository::class)]
 #[ORM\Table(name: 'shifts')]
 #[ORM\Index(columns: ['start_time'], name: 'idx_shift_start_time')]
 #[ORM\Index(columns: ['status'], name: 'idx_shift_status')]
@@ -49,4 +49,6 @@ class Shift
         $this->startTime = $startTime;
         $this->endTime = $endTime;
     }
+
+    // Getters and setters...
 } 
