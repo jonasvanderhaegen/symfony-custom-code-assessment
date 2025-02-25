@@ -1,4 +1,5 @@
 Let's create a Restaurant Management System which involves more intricate business logic and system design.
+This is early work in progress at the moment, when I find the time. I started this code assessment to keep myself busy.
 
 # (Senior) Symfony Developer Assessment
 
